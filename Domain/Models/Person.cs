@@ -10,7 +10,7 @@ public class Person
         LastName = lastName;
     }
     
-    public int Id { get; set; }
+    public int Id { get; }
 
     public string FirstName { get; }
     public string LastName { get; }
