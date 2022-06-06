@@ -1,8 +1,14 @@
+using HealthClinic.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<HealthClinicDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("HealthClinicDbContext")));
 
 var app = builder.Build();
 
