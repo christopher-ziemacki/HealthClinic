@@ -1,20 +1,26 @@
 using HealthClinic.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace HealthClinic.Data;
 
 public class HealthClinicDbContext : DbContext
 {
-    private readonly DbContextOptions<HealthClinicDbContext> _dbContextOptions;
-
-    public HealthClinicDbContext(DbContextOptions<HealthClinicDbContext> dbContextOptions)
-        : base(dbContextOptions)
+    public HealthClinicDbContext(DbContextOptions<HealthClinicDbContext> dbContextOptions) : base(dbContextOptions)
     {
-        _dbContextOptions = dbContextOptions;
+        
     }
     
-    public DbSet<Person> People { get; set; }
+    public DbSet<Person> People => Set<Person>();
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (optionsBuilder.IsConfigured)
+        {
+            return;
+        }
+
+        optionsBuilder.UseNpgsql("Host=localhost;Database=health-clinic");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

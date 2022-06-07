@@ -2,10 +2,9 @@ namespace HealthClinic.Domain.Models;
 
 public class Person
 {
-    public Person(int id, string firstName, string lastName)
+    public Person(string firstName, string lastName)
     {
-        Id = id;
-        
+        Id = default;
         FirstName = firstName;
         LastName = lastName;
     }
